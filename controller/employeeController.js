@@ -34,6 +34,7 @@ const addEmployee = async (req, res) => {
       password,
       role,
     } = req.body;
+    console.log("-------------------------------------", req.body);
 
     // Check if user already exists
     const user = await User.findOne({ email });
@@ -48,7 +49,7 @@ const addEmployee = async (req, res) => {
 
     // Create the user
     const newUser = new User({
-      name,
+      username: name,
       email,
       password: hashPassword,
       role,
@@ -56,7 +57,10 @@ const addEmployee = async (req, res) => {
     });
 
     // Save user
-    const savedUser = await newUser.save();
+    const savedUser = await newUser.save().catch((err) => {
+      console.log(err);
+    });
+    console.log("-=-=-=-=-====-=-=-=-=-=-=-=-==-=-=-=-user", savedUser);
     if (!savedUser) {
       return res
         .status(500)
@@ -77,6 +81,7 @@ const addEmployee = async (req, res) => {
 
     // Save employee
     const savedEmployee = await newEmployee.save();
+    console.log(savedEmployee);
     if (!savedEmployee) {
       return res
         .status(500)

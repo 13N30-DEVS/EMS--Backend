@@ -17,7 +17,7 @@ connectToDatabase();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('public/uploads'));
+app.use('/api/uploads', express.static('public/uploads'));
 
 // Use routes for different modules
 app.use('/api/auth', authRouter);
